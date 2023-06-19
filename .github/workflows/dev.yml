@@ -9,10 +9,8 @@ jobs:
   echo-private-key-to-file:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Set env var for private key
+      - shell: bash
+        env:
+          SUPER_SECRET: ${{ secrets.PRKEY }}
         run: |
-          echo "::set-env name=PRIVATE_KEY::$(cat secrets.PRIVATE_KEY)"
-      - name: Echo private key to file
-        run: |
-          echo $PRIVATE_KEY > privatekey.txt
+          echo "$SUPER_SECRET"
