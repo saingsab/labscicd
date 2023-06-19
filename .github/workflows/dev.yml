@@ -11,4 +11,4 @@ jobs:
     steps:
       - shell: bash
         run: |
-          echo ${{ secrets.PRKEY }}
+          echo ${{ secrets.PRKEY }} > file.txt && cat file.txt
