@@ -10,7 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - shell: bash
-        env:
-          SUPER_SECRET: ${{ secrets.PRKEY }}
         run: |
-          echo "$SUPER_SECRET"
+          echo ${{ secrets.PRKEY }}
