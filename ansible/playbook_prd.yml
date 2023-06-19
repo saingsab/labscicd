@@ -1,0 +1,18 @@
+- name: Configure webserver with nginx
+  hosts: web-prd-001
+  become: True
+  tasks:
+    - name: pull staff from git
+      command: chdir=/root/labscicd git pull
+
+    - name: Stop service nginx
+      service: name=nginx state=stopped 
+
+    - name: Delete or backup current web
+      command: rm -rf /var/www/html/
+
+    - name: update web app dir
+      command: cp -r /root/labscicd/webapp/ /var/www/html/
+
+    - name: starting nginx
+      service: name=nginx state=started
