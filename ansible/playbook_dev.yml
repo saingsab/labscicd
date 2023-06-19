@@ -1,15 +1,15 @@
 - name: Configure webserver with nginx
-  hosts: dev_web
+  hosts: web-dev-001
   become: True
   tasks:
     - name: pull staff from git
-      shell: 
-        "./root/labscicd/pull.sh"
+      command: chdir=/root/labscicd git pull
+
     - name: Stop service nginx
-      service: name=nginx state=stop 
+      service: name=nginx state=stopped 
 
     - name: update web app dir
-      command: cp -r /root/labscicd/webapp/* /var/www/html/
+      command: cp -r /root/labscicd/webapp/ /var/www/html/
 
     - name: starting nginx
-      service: name=nginx state=start
+      service: name=nginx state=started
