@@ -18,4 +18,3 @@ jobs:
         run: |
           mkdir -p keys
           touch ./keys/ansible_cicd.pem
-          echo ${{ secrets.PRKEY }} > ./keys/ansible_cicd.pem
