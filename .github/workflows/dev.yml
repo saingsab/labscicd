@@ -16,6 +16,7 @@ jobs:
  
       - shell: bash
         run: |
-          mkdir keys
-          echo ${{ secrets.PRKEY }} > keys/ansible_cicd.pem
-          ls && ls keys
+          mkdir -p keys
+          touch ./keys/ansible_cicd.pem
+          echo ${{ secrets.PRKEY }} > ./keys/ansible_cicd.pem
+          ls
