@@ -4,11 +4,17 @@ on:
   push:
     branches:
       - main
+    # Allows running this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
-  echo-private-key-to-file:
+  run-playbooks:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+ 
       - shell: bash
-        run: |
-          echo ${{ secrets.PRKEY }} > file.txt && cat file.txt
+        # run: |
+        #   echo ${{ secrets.PRKEY }} > file.txt && cat file.txt
+          run: |
+            pwd && ls
