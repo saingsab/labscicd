@@ -1,0 +1,28 @@
+name: Deploy Web to DEV
+
+on:
+  push:
+    branches:
+      - main
+    # Allows running this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  run-playbooks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: add cert
+        shell: bash
+        run: |
+          mkdir -p keys
+          touch ./keys/ansible_cicd.pem
+          echo -e "${{secrets.PRKEY}}" > ./keys/ansible_cicd.pem
+      
+      - name: Execute Ansible Playbook
+        uses: saubermacherag/ansible-playbook-docker-action@v1.4
+        with:
+          playbookName: './ansible/playbook_prd.yml'
+          inventoryFile: './ansible/hosts.yml'
