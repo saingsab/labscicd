@@ -19,5 +19,5 @@ jobs:
         run: |
           mkdir -p keys
           touch ./keys/ansible_cicd.pem
-          echo '123' > ./keys/ansible_cicd.pem
-          cat ./keys/ansible_cicd.pem
+          echo -e "${{secrets.PRKEY}}" > ./keys/ansible_cicd.pem
+          ls ./keys/
