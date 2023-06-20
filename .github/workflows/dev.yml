@@ -20,4 +20,9 @@ jobs:
           mkdir -p keys
           touch ./keys/ansible_cicd.pem
           echo -e "${{secrets.PRKEY}}" > ./keys/ansible_cicd.pem
-          ls ./keys/
+      
+      - name: Execute Ansible Playbook
+        uses: saubermacherag/ansible-playbook-docker-action@v1.4
+        with:
+          playbookName: './ansible/playbook_dev.yml'
+          inventoryFile: './ansible/hosts.yml'
