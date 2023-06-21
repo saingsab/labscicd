@@ -6,8 +6,8 @@
       ansible.builtin.git:
         repo: https://github.com/saingsab/labscicd.git
         dest: /root/labscicd
-        version: latest
-      # command: chdir=/root/labscicd git pull
+        version: dev
+    # command: chdir=/root/labscicd git pull
     # Example checkout a github repo and use refspec to fetch all pull requests
     # - git:
     #     repo: https://github.com/saingsab/labscicd.git
@@ -23,5 +23,5 @@
     - name: update web app dir
       command: cp -r /root/labscicd/webapp/ /var/www/html/
 
-    - name: starting nginx
+    - name: Start service nginx
       service: name=nginx state=started
