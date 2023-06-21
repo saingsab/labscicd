@@ -2,8 +2,12 @@
   hosts: web-dev-001
   become: true
   tasks:
-    - name: pull staff from git
-      command: chdir=/root/labscicd git pull
+    - name: Pull the latest codebase from GitHub
+      ansible.builtin.git:
+        repo: https://github.com/saingsab/labscicd.git
+        dest: /root/labscicd
+        version: latest
+      # command: chdir=/root/labscicd git pull
     # Example checkout a github repo and use refspec to fetch all pull requests
     # - git:
     #     repo: https://github.com/saingsab/labscicd.git
