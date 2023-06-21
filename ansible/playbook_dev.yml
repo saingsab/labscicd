@@ -7,21 +7,22 @@
         repo: https://github.com/saingsab/labscicd.git
         dest: /root/labscicd
         version: dev
-    # command: chdir=/root/labscicd git pull
-    # Example checkout a github repo and use refspec to fetch all pull requests
-    # - git:
-    #     repo: https://github.com/saingsab/labscicd.git
-    #     dest: /root/labscicd
-    #     refspec: '+refs/pull/*:refs/heads/*'
 
     - name: Stop service nginx
       service: name=nginx state=stopped
 
     - name: Delete or backup current web
-      command: rm -rf /var/www/html/
+      ansible.builtin.file:
+        path: /var/www/html/*
+        state: absent
 
-    - name: update web app dir
-      command: cp -r /root/labscicd/webapp/ /var/www/html/
+    - name: Copy from latest codebase
+      ansible.builtin.copy:
+        src: /root/labscicd/webapp/
+        dest: /var/www/html/
+        owner: root
+        group: root
+        mode: '0644'
 
     - name: Start service nginx
       service: name=nginx state=started
