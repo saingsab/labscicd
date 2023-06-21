@@ -20,9 +20,7 @@
       ansible.builtin.copy:
         src: /root/labscicd/webapp/
         dest: /var/www/html/
-        owner: root
-        group: root
-        mode: '700'
+        mode: '0700'
 
     - name: Start service nginx
       service: name=nginx state=started
