@@ -17,10 +17,11 @@
         state: absent
 
     - name: Copy from latest codebase
-      ansible.builtin.copy:
+      copy:
         src: /root/labscicd/webapp/
         dest: /var/www/html/
-        mode: '0700'
+        force: true
+        mode: 0644
 
     - name: Start service nginx
       service: name=nginx state=started
