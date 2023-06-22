@@ -18,7 +18,7 @@
 
     - name: Copy from latest codebase
       copy:
-        src: /root/labscicd/webapp/
+        src: /root/labscicd/webapp/*
         dest: /var/www/html/
         force: true
         mode: 0644
