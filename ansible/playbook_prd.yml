@@ -1,18 +1,28 @@
 - name: Configure webserver with nginx
   hosts: web-prd-001
-  become: True
+  become: true
   tasks:
-    - name: pull staff from git
-      command: chdir=/root/labscicd git pull
+    - name: Pull the latest codebase from GitHub
+      ansible.builtin.git:
+        repo: https://github.com/saingsab/labscicd.git
+        dest: /root/labscicd
+        version: main
 
     - name: Stop service nginx
-      service: name=nginx state=stopped 
+      service: name=nginx state=stopped
 
     - name: Delete or backup current web
-      command: rm -rf /var/www/html/
+      ansible.builtin.file:
+        path: /var/www/html/*
+        state: absent
 
-    - name: update web app dir
+    - name: state labs
+      stat: path=/root/labscicd/
+      register: state_labs
+
+    - name: somthing
       command: cp -r /root/labscicd/webapp/ /var/www/html/
+      when: state_labs.stat.exists
 
-    - name: starting nginx
+    - name: Start service nginx
       service: name=nginx state=started
