@@ -20,9 +20,11 @@
       stat: path=/root/labscicd/
       register: state_labs
 
-    - name: somthing
+    - name: compy file to html directory
       command: cp -r /root/labscicd/webapp/ /var/www/html/
       when: state_labs.stat.exists
 
     - name: Start service nginx
-      service: name=nginx state=started
+      ansible.builtin.service:
+        name: nginx
+        state: started

@@ -12,9 +12,11 @@
       service: name=nginx state=stopped
 
     - name: Delete or backup current web
-      ansible.builtin.file:
-        path: /var/www/html/*
-        state: absent
+      community.general.archive:
+        path: /var/www/html
+        dest: /root/labscicd.tar.gz
+        format: gz
+
 
     - name: state labs
       stat: path=/root/labscicd/
